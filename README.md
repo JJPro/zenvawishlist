@@ -1,5 +1,5 @@
 # zenvawishlist
-This repo contains the updated code for a reply to a Wordpress plugin lecture on Udemy. 
+This repo contains the updated code for a reply to a Udemy lecture about Wordpress Plugin Development. 
 
 <a href="https://www.udemy.com/wordpress-plugin-development/learn/v4/t/lecture/317354" target="_blank">Lecture: Wordpress Admin Settings - Udemy</a>
 
