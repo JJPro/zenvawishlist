@@ -173,8 +173,26 @@ function zvawp_has_wishlisted($post_id) {
  * Add plugin admin settings
  */
 function zvawp_admin_init() {
+
+    add_settings_section('default', null, null, 'zvawp');
+    add_settings_field('dashboard_title', 'Dashboard widget title', 'zvawp_dashboard_title_input_callback', 'zvawp');
+    add_settings_field('zvawp_number_of_items', 'Number of items to show', 'zvawp_number_of_items_input_callback', 'zvawp');
+
     register_setting('zvawp-group', 'zvawp_dashboard_title');
     register_setting('zvawp-group', 'zvawp_number_of_items');
+}
+
+function zvawp_dashboard_title_input_callback() {
+    $html = '<input type="text" name="zvawp_dashboard_title" id="dashboard_title" value="' . get_option('zvawp_dashboard_title') . '" />';
+    $html .= '<br>';
+    $html .= '<small>help text for this field</small>';
+    echo $html;
+}
+
+function zvawp_number_of_items_input_callback() {
+    $html = '<input type="text" name="zvawp_number_of_items" id="dashboard_title" value="' . get_option('zvawp_number_of_items') . '" />';
+    $html .= '<br/><small>help text for this field</small>';
+    echo $html;
 }
 
 /**
@@ -190,27 +208,16 @@ function zvawp_plugin_menu() {
 function zvawp_plugin_options() {
     ?>
     <div class="wrap">
-        <?php screen_icon(); ?>
         <h2>Zenva Wishlist</h2>
         <form action="options.php" method="post">
-            <?php settings_fields('zvawp-group'); ?>
-            <?php @do_settings_fields('zvawp-group'); ?> 
-            <table class="form-table"> 
-                <tr valign="top"> 
-                    <th scope="row"><label for="zvawp_dashboard_title">Dashboard widget title</label></th> 
-                    <td>
-                        <input type="text" name="zvawp_dashboard_title" id="dashboard_title" value="<?php echo get_option('zvawp_dashboard_title'); ?>" />
-                        <br/><small>help text for this field</small>
-                    </td>                
-                </tr> 
-                <tr valign="top"> 
-                    <th scope="row"><label for="zvawp_number_of_items">Number of items to show</label></th> 
-                    <td>
-                        <input type="text" name="zvawp_number_of_items" id="dashboard_title" value="<?php echo get_option('zvawp_number_of_items'); ?>" />
-                        <br/><small>help text for this field</small>
-                    </td>                
-                </tr> 
-            </table> <?php @submit_button(); ?> 
+
+            <?php
+            settings_fields('zvawp-group');
+            do_settings_sections('zvawp');
+
+            submit_button();
+            ?>
+
         </form>
     </div>
     <?php
